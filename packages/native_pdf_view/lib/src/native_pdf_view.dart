@@ -46,6 +46,7 @@ class PdfView extends StatefulWidget {
     this.errorBuilder,
     this.renderer = _render,
     this.scrollDirection = Axis.horizontal,
+    this.reverse = false,
     this.pageSnapping = true,
     this.physics,
     this.loaderSwitchDuration = const Duration(seconds: 1),
@@ -53,6 +54,7 @@ class PdfView extends StatefulWidget {
   })  : assert(pageSnapping != null),
         assert(controller != null),
         assert(scrollDirection != null),
+        assert(reverse != null),
         assert(renderer != null),
         super(key: key);
 
@@ -88,6 +90,9 @@ class PdfView extends StatefulWidget {
 
   /// Page turning direction
   final Axis scrollDirection;
+
+  /// Whether the page view scrolls in the reading direction
+  final bool reverse;
 
   /// Set to false to disable page snapping, useful for custom scroll behavior.
   final bool pageSnapping;
@@ -275,6 +280,7 @@ class _PdfViewState extends State<PdfView> with SingleTickerProviderStateMixin {
           },
           controller: widget.controller?._pageController,
           scrollDirection: widget.scrollDirection,
+          reverse: widget.reverse,
           pageSnapping: widget.pageSnapping,
           physics: widget.physics,
         ),
